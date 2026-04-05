@@ -1,0 +1,917 @@
+/* 全局重置与基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Serif SC', serif; /* 思源宋体 - 学术感 */
+    color: #333;
+    line-height: 1.6;
+    background-color: #f8f9fa;
+    padding-top: 70px; /* 给固定导航栏留空间 */
+}
+
+/* 容器样式 - 居中且限制宽度 */
+.container {
+    width: 1200px;
+    max-width: 95%; /* 适配小屏幕 */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 板块通用样式 */
+.section {
+    padding: 60px 0;
+}
+
+.light-bg {
+    background-color: #F3F4F6; /* 浅灰辅助色 */
+}
+
+.section-title {
+    font-family: 'Noto Sans SC', sans-serif; /* 思源黑体 - 标题醒目 */
+    color: #1E3A8A; /* 深蓝主色 */
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 28px;
+    font-weight: 500;
+}
+
+/* 顶部导航栏 */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1E3A8A;
+    color: #fff;
+    z-index: 9999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.logo {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+.nav-menu li {
+    margin-left: 25px;
+}
+
+.nav-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.nav-menu a:hover {
+    color: #3B82F6; /* 浅蓝强调色 */
+}
+
+/* 个人学术名片 */
+.hero {
+    background: linear-gradient(to right, #1E3A8A, #3B82F6);
+    color: #fff;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.hero-content h2 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.hero-content h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: normal;
+    opacity: 0.9;
+}
+
+.academic-position {
+    font-size: 16px;
+    max-width: 700px;
+    margin: 0 auto;
+    opacity: 0.8;
+}
+
+/* 毕业论文板块 */
+.thesis-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+}
+
+.thesis-card h3 {
+    color: #1E3A8A;
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+.period {
+    color: #666;
+    margin-bottom: 30px;
+    display: block;
+    font-style: italic;
+}
+
+.thesis-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.thesis-item h4 {
+    font-family: 'Noto Sans SC', sans-serif;
+    color: #1E3A8A;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+/* 知识体系板块 */
+.knowledge-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.knowledge-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    border-left: 4px solid #3B82F6;
+}
+
+.knowledge-card h3 {
+    font-family: 'Noto Sans SC', sans-serif;
+    color: #1E3A8A;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.knowledge-card ul {
+    list-style: none;
+}
+
+.knowledge-card li {
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.knowledge-card li::before {
+    content: "•";
+    color: #3B82F6;
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+}
+
+/* 案例库板块 */
+.cases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.case-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.case-card h3 {
+    font-family: 'Noto Sans SC', sans-serif;
+    color: #1E3A8A;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+/* 研究规划板块 */
+.plan-content {
+    background: #fff;
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.plan-content ol {
+    padding-left: 30px;
+}
+
+.plan-content li {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.plan-content strong {
+    color: #1E3A8A;
+}
+
+/* 页脚 */
+.footer {
+    background-color: #1E3A8A;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 14px;
+}
+
+/* 响应式适配 - 复试主要看电脑端，此为兜底 */
+@media (max-width: 992px) {
+    .thesis-grid, .knowledge-grid, .cases-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* 个人简历板块样式 */
+.resume-content {
+    background: #fff;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+}
+
+.resume-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.resume-item h3 {
+    font-family: 'Noto Sans SC', sans-serif;
+    color: #1E3A8A;
+    margin-bottom: 20px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.resume-item h3 i {
+    margin-right: 10px;
+    color: #3B82F6;
+}
+
+.resume-detail {
+    color: #333;
+    line-height: 1.7;
+}
+
+.resume-detail strong {
+    color: #1E3A8A;
+}
+
+.resume-detail ul {
+    list-style: none;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.resume-detail li {
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.resume-detail li::before {
+    content: "•";
+    color: #3B82F6;
+    font-size: 20px;
+    position: absolute;
+    left: -20px;
+    top: -2px;
+}
+
+/* 响应式适配 */
+@media (max-width: 992px) {
+    .resume-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* 个人简历板块样式（适配原始简历内容） */
+.resume-content {
+    background: #fff;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+}
+
+.resume-basic {
+    margin-bottom: 30px;
+}
+
+.resume-basic h3, .resume-item h3 {
+    font-family: 'Noto Sans SC', sans-serif;
+    color: #1E3A8A;
+    margin-bottom: 15px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.resume-basic h3 i, .resume-item h3 i {
+    margin-right: 10px;
+    color: #3B82F6;
+}
+
+.resume-basic-detail, .resume-detail {
+    color: #333;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.resume-detail strong {
+    color: #1E3A8A;
+}
+
+/* 初试成绩表格样式 */
+.exam-score {
+    margin-top: 15px;
+}
+
+.exam-score h4 {
+    font-family: 'Noto Sans SC', sans-serif;
+    color: #1E3A8A;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.exam-score table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.exam-score table tr td {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+}
+
+.exam-score table tr:first-child {
+    background-color: #F3F4F6;
+}
+
+/* 响应式适配 */
+@media (max-width: 992px) {
+    .resume-content {
+        padding: 30px 20px;
+    }
+}
+/* 新增：证件照+简历头部布局 */
+.resume-header {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 30px;
+    align-items: flex-start;
+}
+
+/* 证件照容器 */
+.avatar-container {
+    flex-shrink: 0;
+}
+
+.avatar-frame {
+    width: 200px;
+    height: 260px;
+    border: 2px solid #3B82F6;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    background-color: #f8f9fa;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+}
+
+.avatar-tip {
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+}
+
+/* 基本信息自适应 */
+.resume-basic {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.resume-application {
+    margin-top: 20px;
+}
+
+/* 毕业论文折叠按钮样式 */
+.thesis-btn {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #1E3A8A;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.thesis-btn:hover {
+    background-color: #3B82F6;
+}
+
+.thesis-btn i {
+    margin-right: 10px;
+}
+
+/* 隐藏类 */
+.hidden {
+    display: none;
+}
+
+/* 响应式适配 */
+@media (max-width: 992px) {
+    .resume-header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .avatar-frame {
+        margin: 0 auto;
+    }
+}
+
+/* 原有简历样式补充 */
+.resume-content {
+    background: #fff;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+}
+
+.resume-basic h3, .resume-item h3 {
+    font-family: 'Noto Sans SC', sans-serif;
+    color: #1E3A8A;
+    margin-bottom: 15px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.resume-basic h3 i, .resume-item h3 i {
+    margin-right: 10px;
+    color: #3B82F6;
+}
+
+.resume-basic-detail, .resume-detail {
+    color: #333;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.resume-detail strong {
+    color: #1E3A8A;
+}
+
+/* 初试成绩表格样式 */
+.exam-score {
+    margin-top: 15px;
+}
+
+.exam-score h4 {
+    font-family: 'Noto Sans SC', sans-serif;
+    color: #1E3A8A;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.exam-score table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.exam-score table tr td {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+}
+
+.exam-score table tr:first-child {
+    background-color: #F3F4F6;
+}
+/* 新增：证件照+简历头部布局 */
+.resume-header {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 30px;
+    align-items: flex-start;
+}
+
+/* 证件照容器 */
+.avatar-container {
+    flex-shrink: 0;
+}
+
+.avatar-frame {
+    width: 200px;
+    height: 260px;
+    border: 2px solid #3B82F6;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    background-color: #f8f9fa;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+}
+
+.avatar-tip {
+    font-size: 12px;
+    color: #666;
+    margin: 0;
+}
+
+/* 基本信息自适应 */
+.resume-basic {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.resume-application {
+    margin-top: 20px;
+}
+
+/* 毕业论文折叠按钮样式 */
+.thesis-btn {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #1E3A8A;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.thesis-btn:hover {
+    background-color: #3B82F6;
+}
+
+.thesis-btn i {
+    margin-right: 10px;
+}
+
+/* 隐藏类 */
+.hidden {
+    display: none;
+}
+
+/* 响应式适配 */
+@media (max-width: 992px) {
+    .resume-header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .avatar-frame {
+        margin: 0 auto;
+    }
+}
+
+/* 原有简历样式补充 */
+.resume-content {
+    background: #fff;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+}
+
+.resume-basic h3, .resume-item h3 {
+    font-family: 'Noto Sans SC', sans-serif;
+    color: #1E3A8A;
+    margin-bottom: 15px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.resume-basic h3 i, .resume-item h3 i {
+    margin-right: 10px;
+    color: #3B82F6;
+}
+
+.resume-basic-detail, .resume-detail {
+    color: #333;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.resume-detail strong {
+    color: #1E3A8A;
+}
+
+/* 初试成绩表格样式 */
+.exam-score {
+    margin-top: 15px;
+}
+
+.exam-score h4 {
+    font-family: 'Noto Sans SC', sans-serif;
+    color: #1E3A8A;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.exam-score table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.exam-score table tr td {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+}
+
+.exam-score table tr:first-child {
+    background-color: #F3F4F6;
+}
+/* ========== 文字作品集思维导图样式 ========== */
+.portfolio-desc {
+    text-align: center;
+    color: #666;
+    margin-bottom: 40px;
+    font-size: 16px;
+}
+
+/* 思维导图容器 */
+.mindmap-container {
+    background: #fff;
+    border-radius: 10px;
+    padding: 40px 20px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    overflow-x: auto;
+    min-height: 500px;
+}
+
+/* 根节点样式 */
+.mindmap-root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.root-node {
+    background: #1E3A8A;
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Noto Sans SC', sans-serif;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 10px rgba(30, 58, 138, 0.3);
+}
+
+.root-node i {
+    margin-right: 10px;
+}
+
+/* 分支通用样式 */
+.mindmap-branch {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    position: relative;
+    width: 100%;
+}
+
+.mindmap-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* 节点连接线 */
+.mindmap-branch::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 20px;
+    background: #3B82F6;
+}
+
+.level-2::before {
+    display: none;
+}
+
+.mindmap-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 20px;
+    background: #3B82F6;
+}
+
+/* 二级分支节点 */
+.branch-node {
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Noto Sans SC', sans-serif;
+    margin-bottom: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 180px;
+    text-align: center;
+}
+
+.academic-node {
+    background: #dbeafe;
+    color: #1E3A8A;
+    border: 2px solid #3B82F6;
+}
+
+.literary-node {
+    background: #fce7f3;
+    color: #9f1239;
+    border: 2px solid #ec4899;
+}
+
+.branch-node:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* 三级叶子节点 */
+.leaf-node {
+    background: #f3f4f6;
+    color: #1f2937;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: 'Noto Sans SC', sans-serif;
+    margin-bottom: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 160px;
+    text-align: center;
+    border: 1px solid #d1d5db;
+}
+
+.leaf-node:hover {
+    background: #e5e7eb;
+}
+
+/* 四级详情节点 */
+.detail-node {
+    background: #fff;
+    color: #374151;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: 'Noto Serif SC', serif;
+    margin-bottom: 15px;
+    min-width: 200px;
+    border-left: 3px solid #3B82F6;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.highlight-node {
+    background: #fef3c7;
+    border-left: 3px solid #f59e0b;
+    font-weight: bold;
+}
+
+/* 展开/收起图标 */
+.toggle-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    color: #3B82F6;
+    font-size: 12px;
+}
+
+/* 文件链接 */
+.file-link {
+    margin-left: 8px;
+    color: #3B82F6;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.file-link:hover {
+    color: #1E3A8A;
+}
+
+/* 隐藏类 */
+.hidden {
+    display: none !important;
+}
+
+/* 响应式适配 */
+@media (max-width: 992px) {
+    .mindmap-branch {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .mindmap-branch::before, .mindmap-wrapper::before {
+        display: none;
+    }
+
+    .branch-node, .leaf-node {
+        margin-bottom: 20px;
+    }
+}
+/* 毕业论文子模块样式优化 */
+.thesis-main {
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.subsection-title {
+    font-family: 'Noto Sans SC', sans-serif;
+    color: #1E3A8A;
+    margin-bottom: 30px;
+    font-size: 22px;
+    text-align: center;
+}
+
+.thesis-subsection .knowledge-grid,
+.thesis-subsection .cases-grid {
+    max-width: 100%;
+    margin: 0 auto;
+}
+/* 毕业论文子模块样式优化 */
+.thesis-main {
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.subsection-title {
+    font-family: 'Noto Sans SC', sans-serif;
+    color: #1E3A8A;
+    margin-bottom: 30px;
+    font-size: 22px;
+    text-align: center;
+}
+
+.thesis-subsection .knowledge-grid,
+.thesis-subsection .cases-grid {
+    max-width: 100%;
+    margin: 0 auto;
+}

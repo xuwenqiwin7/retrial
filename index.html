@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>徐文琪 - 研究生复试学术主页</title>
+    <!-- 关联CSS样式 -->
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入思源字体+图标 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400&family=Noto+Sans+SC:wght@400&display=swap');
+    </style>
+    <!-- 词云+手风琴专属样式 -->
+    <style>
+        /* ========== 毕业论文关键词词云样式 ========== */
+        .wordcloud-container {
+            margin: 30px 0;
+            padding: 30px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            position: relative;
+        }
+        .wordcloud-title {
+            color: #1E3A8A;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        #wordcloud-canvas {
+            max-width: 100%;
+            border-radius: 8px;
+            background: #fff;
+        }
+        .wordcloud-tip {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        /* 悬浮提示框样式 */
+        .word-tooltip {
+            position: absolute;
+            background: rgba(30, 58, 138, 0.95);
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 320px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: 1000;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        .word-tooltip.show {
+            opacity: 1;
+        }
+        .tooltip-title {
+            font-weight: bold;
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+        .tooltip-content {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* ========== 作品集手风琴折叠样式 ========== */
+        .accordion-container {
+            width: 100%;
+            margin: 0 auto;
+        }
+        /* 一级折叠面板（三大分类） */
+        .accordion-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        .accordion-header {
+            background: #1E3A8A;
+            color: #fff;
+            padding: 18px 25px;
+            font-size: 18px;
+            font-weight: 500;
+            font-family: 'Noto Sans SC', sans-serif;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+        .accordion-header:hover {
+            background: #1a367a;
+        }
+        .accordion-header .icon {
+            transition: transform 0.3s ease;
+        }
+        .accordion-header.active .icon {
+            transform: rotate(180deg);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #fff;
+        }
+        .accordion-content.active {
+            max-height: 2000px;
+        }
+        .accordion-inner {
+            padding: 25px;
+        }
+        /* 二级折叠面板（子分类） */
+        .sub-accordion-item {
+            margin-bottom: 12px;
+            border-radius: 6px;
+            border: 1px solid #dbeafe;
+        }
+        .sub-accordion-header {
+            background: #eff6ff;
+            color: #1E3A8A;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            font-family: 'Noto Sans SC', sans-serif;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sub-accordion-header .sub-icon {
+            transition: transform 0.3s ease;
+        }
+        .sub-accordion-header.active .sub-icon {
+            transform: rotate(180deg);
+        }
+        .sub-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #f8fafc;
+        }
+        .sub-accordion-content.active {
+            max-height: 1500px;
+        }
+        .sub-accordion-inner {
+            padding: 15px 20px;
+        }
+        /* 作品列表样式 */
+        .work-list {
+            list-style: none;
+            padding: 0;
+        }
+        .work-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+            line-height: 1.6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .work-item:last-child {
+            border-bottom: none;
+        }
+        .work-item .file-link {
+            color: #3B82F6;
+            text-decoration: none;
+            margin-left: 10px;
+            font-size: 16px;
+        }
+        .work-item .file-link:hover {
+            color: #1E3A8A;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部固定导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">徐文琪 学术主页</h1>
+            <ul class="nav-menu">
+                <li><a href="#home"><i class="fas fa-home"></i> 首页</a></li>
+                <li><a href="#resume"><i class="fas fa-id-card"></i> 个人简历</a></li>
+                <li><a href="#thesis"><i class="fas fa-file-alt"></i> 毕业论文</a></li>
+                <li><a href="#portfolio"><i class="fas fa-book-open"></i> 文字类作品集</a></li>
+                <li><a href="#comprehensive-portfolio"><i class="fas fa-layer-group"></i> 综合类作品集</a></li>
+                <li><a href="#plan"><i class="fas fa-road"></i> 研究规划</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 个人学术名片（首页） -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>徐文琪</h2>
+                <p class="academic-position">文化产业管理专业</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 个人简历板块 -->
+    <section id="resume" class="section light-bg">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-id-card"></i> 个人简历</h2>
+            <div class="resume-content">
+                <!-- 证件照+基本信息横向布局 -->
+                <div class="resume-header">
+                    <!-- 证件照区域 -->
+                    <div class="avatar-container">
+                        <div class="avatar-frame">
+                            <img src="avatar.jpg" alt="徐文琪 证件照" class="avatar-img">
+                            <p class="avatar-tip"></p>
+                        </div>
+                    </div>
+                    <!-- 基本信息 -->
+                    <div class="resume-basic">
+                        <h3><i class="fas fa-user"></i> 基本信息</h3>
+                        <div class="resume-basic-detail">
+                            <p><strong>出生年月</strong>：2003年8月</p>
+                            <p><strong>现居住地</strong>：广东省梅州市</p>
+                            <p><strong>联系电话</strong>：18420428470</p>
+                            <p><strong>电子邮箱</strong>：xuwenqiwin7@163.com</p>
+                        </div>
+
+                        <!-- 报考信息 -->
+                        <div class="resume-item resume-application">
+                            <h3><i class="fas fa-graduation-cap"></i> 报考信息</h3>
+                            <div class="resume-detail">
+                                <p><strong>一志愿报考院校</strong>：广州大学</p>
+                                <p><strong>报考专业</strong>：(050101)文艺学</p>
+                                <p><strong>报考属性</strong>：全日制学术型研究生</p>
+                                <div class="exam-score">
+                                    <h4>初试成绩</h4>
+                                    <table>
+                                        <tr>
+                                            <td>(101)政治</td>
+                                            <td>(201)英语(一)</td>
+                                            <td>(632)中外文学综合</td>
+                                            <td>(827)阅读与写作</td>
+                                            <td>总分</td>
+                                        </tr>
+                                        <tr>
+                                            <td>68</td>
+                                            <td>59</td>
+                                            <td>112</td>
+                                            <td>126</td>
+                                            <td>365</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 教育背景 -->
+                <div class="resume-item">
+                    <h3><i class="fas fa-school"></i> 教育背景</h3>
+                    <div class="resume-detail">
+                        <p><strong>2021.09-2025.06</strong> 仲恺农业工程学院 文化产业管理专业/本科</p>
+                        <p><strong>均分</strong>：87/100（TOP 10%）</p>
+                        <p><strong>主修课程</strong>：管理学、统计学、大众传媒与舆情管理、媒介运营与管理、文化产业学、文化传播学、文化政策与法规、广告学、新媒体写作、中国文学、外国文学、中西艺术史、摄影技术、平面设计、影视文化与影视产业、大众文化导论、民俗学、美学原理等。</p>
+                    </div>
+                </div>
+
+                <!-- 项目经历 -->
+                <div class="resume-item">
+                    <h3><i class="fas fa-project-diagram"></i> 项目经历</h3>
+                    <div class="resume-detail">
+                        <p><strong>广州线下漫展发展对策研究（毕业论文）</strong> 2023.11-2025.05</p>
+                        <p>采用访谈调研、数据提取与文本分析相结合的方法，以AI爬虫数据监测为依托，结合福柯、马尔库塞“知识权力”理论展开文化研究，深度剖析青年亚文化场域中受众的身份认同与情感转向。聚焦漫展运营符号消费、艺术生产活动、视觉文化与审美主体性、受众心理文化记忆等核心议题展开学理探究，结合读者生产批评、游戏现实主义、网络文化、粉丝文化、消费文化理论等，对漫展活动监管、内容创作自生力不足、同人制品版权、运营守旧问题相关方面深入研究，从文化生态监管与舆情风险防控、文艺内容创新的自流体增长与“互联网＋”审美体验升级、区域链文化产业协同发展、互助长效发展与政策保障等维度，梳理行业现状并提出发展建议。</p>
+
+                        <p style="margin-top: 15px;"><strong>新媒体平台内容创作（自媒体运营）</strong> 2021.06-至今</p>
+                        <p>策划运营5+垂直类文创账号，依平台传播特性、内容创作类型及受众审美圈层进行精准定位与分众创作；深耕文字创作与视觉表达，同人二创原创文稿创作字数超10万，文学IP衍生视觉作品200余幅，总浏览量100W+，深化了对文化传播的实践认知。</p>
+
+                        <p style="margin-top: 15px;"><strong>《与鲁迅先生一起叹生活》花城出版社（插画稿件作者）</strong> 2022.01-2022.07</p>
+                        <p>独立完成书籍全册50+幅插画创作，精准呈现鲁迅文学作品中“生活哲思”主题，强化文学文本理解与审美转化能力。</p>
+                    </div>
+                </div>
+
+                <!-- 实习经历 -->
+                <div class="resume-item">
+                    <h3><i class="fas fa-briefcase"></i> 实习经历</h3>
+                    <div class="resume-detail">
+                        <p><strong>广东广播电视台广东嘉佳少儿频道 实习编导</strong> 2023.12.18-2024.03.18</p>
+                        <p>协助编导完成短视频全流程执行，兼顾合作商谈、日常事务与跨部门沟通，统筹线下活动筹备执行，保障各环节高效落地。</p>
+                    </div>
+                </div>
+
+                <!-- 校园经历 -->
+                <div class="resume-item">
+                    <h3><i class="fas fa-university"></i> 校园经历</h3>
+                    <div class="resume-detail">
+                        <p><strong>校艺术团合唱队队长</strong>（2022.08–2023.08）：团队协作、组织统筹总负责；合唱指挥，钢琴伴奏，节目指导；文娱活动策划与执行等</p>
+                        <p><strong>跆拳道校队总务部部长</strong>（2022.08–2023.08）：校队公众号推文制作，活动策划，队内事务处理，物资申请与购买等</p>
+                        <p><strong>文管212班正班长</strong>（2023.06–2024.06）：团队领导与组织协调，统筹班级日常管理，制定制度并协调班委分工；策划组织班会等活动</p>
+                    </div>
+                </div>
+
+                <!-- 技能奖项 -->
+                <div class="resume-item">
+                    <h3><i class="fas fa-award"></i> 技能奖项</h3>
+                    <div class="resume-detail">
+                        <p><strong>奖项</strong>：2022年校三等奖学金；2023年优秀学生干部（团干）；2023年第八届广州合唱节团体金奖</p>
+                        <p><strong>证书</strong>：大学英语六级（CET-6）；普通话水平测试二级甲等；演出经纪人资格证</p>
+                    </div>
+                </div>
+
+                <!-- 自我评价 -->
+                <div class="resume-item">
+                    <h3><i class="fas fa-comment"></i> 自我评价</h3>
+                    <div class="resume-detail">
+                        <p><strong>基本素养</strong>：本人诚恳负责、吃苦耐劳，思维活跃且细心严谨，学习与执行力强，乐于探索新事物，有独立解决问题的能力</p>
+                        <p><strong>基本技能</strong>：熟悉文案、绘画、配音、摄影、剪辑、运营等全流程创作，熟练掌握PS、可画、秀米、剪映、ID等多款软件</p>
+                        <p><strong>英语技能</strong>：英语口语较好，能够用英语进行简单的日常交流，基本无障碍阅读英语语言类网文小说，熟悉海外软件x、tiktok等</p>
+                        <p><strong>新媒体能力</strong>：熟练掌握小红书、抖音、公众号等平台内容运营逻辑，具备文案撰写、内容策划、宣发推广能力</p>
+                        <p><strong>数据与调研</strong>：熟练使用问卷星、AI爬虫、Excel数据分析工具，可独立完成市场调研、用户画像分析、行业研究报告撰写</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 毕业论文板块（优化版词云+悬浮提示） -->
+    <section id="thesis" class="section">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-file-alt"></i> 毕业论文研究成果</h2>
+            <!-- 折叠按钮 -->
+            <button id="thesis-toggle" class="thesis-btn">
+                <i class="fas fa-chevron-down"></i> 展开《广州线下漫展的转型困境研究》完整研究内容
+            </button>
+            <!-- 折叠内容 -->
+            <div id="thesis-content" class="thesis-card hidden">
+                <!-- 新增：毕业论文关键词词云 -->
+                <div class="wordcloud-container">
+                    <div class="wordcloud-title">毕业论文核心关键词词云</div>
+                    <canvas id="wordcloud-canvas" width="900" height="400"></canvas>
+                    <div id="word-tooltip" class="word-tooltip"></div>
+                    <p class="wordcloud-tip">鼠标悬浮可查看关键词解释，呈现论文关键词核心研究内容</p>
+                </div>
+
+                <!-- 论文核心内容 -->
+                <div class="thesis-main">
+                    <h3>《广州线下漫展的转型困境研究》</h3>
+                    <p class="period">研究周期：2023.11 - 2025.05 | 指导教师：计红 教授</p>
+                    
+                    <div class="thesis-grid">
+                        <div class="thesis-item">
+                            <h4>理论框架</h4>
+                            <p>福柯「权力规训/知识权力」、马尔库塞「文化工业/压抑性反升华」、葛兰西「文化霸权」、鲍德里亚「符号消费」</p>
+                        </div>
+                        <div class="thesis-item">
+                            <h4>研究方法</h4>
+                            <p>访谈调研、数据提取与文本分析相结合，大模型市场趋势监测，田野调研（1年一线参与）、典型案例拆解（萤火虫漫展）</p>
+                        </div>
+                        <div class="thesis-item">
+                            <h4>核心议题</h4>
+                            <p>符号消费、艺术生产活动、视觉文化与审美主体性、受众心理文化记忆、同人制品版权、运营模式创新</p>
+                        </div>
+                        <div class="thesis-item">
+                            <h4>研究创新</h4>
+                            <p>融合读者生产批评、游戏现实主义等多理论，提出文化生态监管、“互联网+”审美体验升级等针对性发展建议</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 研究核心知识体系 -->
+                <div class="thesis-subsection">
+                    <h3 class="subsection-title"><i class="fas fa-book"></i> 研究核心知识体系</h3>
+                    <div class="knowledge-grid">
+                        <div class="knowledge-card">
+                            <h3>西方马克思主义文论</h3>
+                            <ul>
+                                <li><strong>马尔库塞</strong>：文化工业、单向度的人</li>
+                                <li><strong>福柯</strong>：规训与惩罚、知识-权力</li>
+                                <li><strong>本雅明</strong>：机械复制、艺术光晕</li>
+                            </ul>
+                        </div>
+                        <div class="knowledge-card">
+                            <h3>文化研究理论</h3>
+                            <ul>
+                                <li><strong>霍尔</strong>：编码/解码理论</li>
+                                <li><strong>威廉斯</strong>：文化是日常的</li>
+                                <li><strong>菲斯克</strong>：大众文化的抵抗性</li>
+                            </ul>
+                        </div>
+                        <div class="knowledge-card">
+                            <h3>核心批评视角</h3>
+                            <ul>
+                                <li><strong>符号消费</strong>：鲍德里亚</li>
+                                <li><strong>亚文化抵抗</strong>：赫伯迪格</li>
+                                <li><strong>读者生产批评</strong>：接受美学延伸</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 研究核心案例库 -->
+                <div class="thesis-subsection" style="margin-top: 40px;">
+                    <h3 class="subsection-title"><i class="fas fa-cubes"></i> 研究核心案例库（广州漫展）</h3>
+                    <div class="cases-grid">
+                        <div class="case-card">
+                            <h3>符号消费案例</h3>
+                            <p>漫展「限定谷子」「IP周边」的符号价值生产，青年通过消费完成身份认同建构。</p>
+                        </div>
+                        <div class="case-card">
+                            <h3>亚文化抵抗案例</h3>
+                            <p>B站鬼畜、同人二次创作，对文化工业标准化内容的创造性解码与协商式抵抗。</p>
+                        </div>
+                        <div class="case-card">
+                            <h3>权力规训案例</h3>
+                            <p>漫展监管、圈层规则与受众行为的博弈，体现福柯式的微观权力运作。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 文字类作品集板块（手风琴折叠交互） -->
+    <section id="portfolio" class="section light-bg">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-book-open"></i> 文字类作品集</h2>
+            <p class="portfolio-desc">完整收录三大类文字作品，点击分类标题可展开/收起内容，点击「📄」可查看作品全文</p>
+            
+            <!-- 手风琴容器 -->
+            <div class="accordion-container">
+                <!-- 第一类：分析类文章 -->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        一、分析类文章
+                        <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-inner">
+                            <!-- 二级折叠：核心学术分析 -->
+                            <div class="sub-accordion-item">
+                                <div class="sub-accordion-header">
+                                    核心学术分析
+                                    <span class="sub-icon"><i class="fas fa-chevron-down"></i></span>
+                                </div>
+                                <div class="sub-accordion-content">
+                                    <div class="sub-accordion-inner">
+                                        <ul class="work-list">
+                                            <li class="work-item">
+                                                <span>1. 毕业论文：广州线下漫展的转型困境研究</span>
+                                                <a href="分析类-1.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>2. 文献综述：耽美同人作品创作对女性主义理论发展的影响研究</span>
+                                                <a href="分析类-2.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>3. 文艺批评：浅析日本动漫《进击的巨人》中蕴含的悲剧美学原理</span>
+                                                <a href="分析类-3.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>4. 文化研究：《文化是一种指意实践——以网络流行用语“夹子音”文化现象为例》 </span>
+                                                <a href="分析类-4.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>5. 调查报告：《广州国乙漫展文化产业发展路径调查报告》 </span>
+                                                <a href="分析类-5.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>6. 舆情分析：以“游戏公司股价大跳水事件”事件国家新闻出版署出版2023年12月22日向社会公开征求意见《网络游戏管理办法》为例 </span>
+                                                <a href="分析类-6.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>7. 游戏运营：以开服半年期间网易系游戏《逆水寒手游》新媒体平台运营实况为例 </span>
+                                                <a href="分析类-7.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>8. 品牌营销：二次元文化产业会展IP运营分析——以2024年元旦期间“广州萤火虫动漫嘉年华”漫展为例 </span>
+                                                <a href="分析类-8.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 二级折叠：商业分析策划 -->
+                            <div class="sub-accordion-item">
+                                <div class="sub-accordion-header">
+                                    商业分析策划
+                                    <span class="sub-icon"><i class="fas fa-chevron-down"></i></span>
+                                </div>
+                                <div class="sub-accordion-content">
+                                    <div class="sub-accordion-inner">
+                                        <ul class="work-list">
+                                            <li class="work-item">
+                                                <span>1. 营销策划：泡泡玛特跨界日化服饰自研联名营销策划案 </span>
+                                                <a href="分析类-其他1.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>2. 电影营销：文艺片电影《河边的错误》的营销推广分析 </span>
+                                                <a href="分析类-其他2.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第二类：应用类文案 -->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        二、应用类文案
+                        <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-inner">
+                            <ul class="work-list">
+                                <li class="work-item">
+                                    <span>1. 漫展运营宣发文案-微博/小红书/抖音 </span>
+                                    <a href="应用类-1.jpg" target="_blank" class="file-link">📄</a>
+                                </li>
+                                <li class="work-item">
+                                    <span>2. 公众号推文-品牌介绍 </span>
+                                    <a href="应用类-2.jpg" target="_blank" class="file-link">📄</a>
+                                </li>
+                                <li class="work-item">
+                                    <span>3. 晚会节目串场词-拼台歌舞类 </span>
+                                    <a href="应用类-3.jpg" target="_blank" class="file-link">📄</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第三类：小说类文案 -->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        三、小说类文案
+                        <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-inner">
+                            <!-- 二级折叠：原创创作类 -->
+                            <div class="sub-accordion-item">
+                                <div class="sub-accordion-header">
+                                    原创创作类
+                                    <span class="sub-icon"><i class="fas fa-chevron-down"></i></span>
+                                </div>
+                                <div class="sub-accordion-content">
+                                    <div class="sub-accordion-inner">
+                                        <ul class="work-list">
+                                            <li class="work-item">
+                                                <span>1. 视觉小说游戏策划-悬疑/心理惊悚/多线叙事-人偶屋</span>
+                                                <a href="创作类-1.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>2. 模拟养成游戏策划-历史/养成/恋爱-中唐风华录</span>
+                                                <a href="创作类-2.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>3. 游戏攻略-《美少男梦工厂：绮丽版》三界王结局</span>
+                                                <a href="创作类-3.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>4. 同人世界oc小说-bl-架空/悬疑-HE-【花羊】天上掉下只羊咩咩</span>
+                                                <a href="创作类-4.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>5. 短篇历史小说-三国/说书风/第一人称-【郭嘉个人向】忘川</span>
+                                                <a href="创作类-5.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>6. 剪辑镜头脚本-悬疑/情感/群像-【名柯】暗涌</span>
+                                                <a href="创作类-6.pdf" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>7. 开场白台本-广播剧/日系-【全猎】风之歌</span>
+                                                <a href="创作类-7.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>8. 文言随笔-散文;骚体;四言诗  </span>
+                                                <a href="创作类-8.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>9. 现代诗-西幻-短诗集-西方古代文学 第26页</span>
+                                                <a href="创作类-9.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                            <li class="work-item">
+                                                <span>10. 现代诗-西幻-长诗-中世纪文学 第26页</span>
+                                                <a href="创作类-10.jpg" target="_blank" class="file-link">📄</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 二级折叠：短篇同人文 -->
+                            <div class="sub-accordion-item">
+                                <div class="sub-accordion-header">
+                                    短篇同人文
+                                    <span class="sub-icon"><i class="fas fa-chevron-down"></i></span>
+                                </div>
+                                <div class="sub-accordion-content">
+                                    <div class="sub-accordion-inner">
+                                        <!-- 三级折叠：二次元类 -->
+                                        <div class="sub-accordion-item">
+                                            <div class="sub-accordion-header" style="background: #f8fafc;">
+                                                二次元类
+                                                <span class="sub-icon"><i class="fas fa-chevron-down"></i></span>
+                                            </div>
+                                            <div class="sub-accordion-content">
+                                                <div class="sub-accordion-inner">
+                                                    <ul class="work-list">
+                                                        <li class="work-item">
+                                                            <span>1. 悬疑/心理-BE-【主L月】神爱世人</span>
+                                                            <a href="同人-二次元1.pdf" target="_blank" class="file-link">📄</a>
+                                                        </li>
+                                                        <li class="work-item">
+                                                            <span>2. 虐恋/对文-BE-【月L】最后一次【L月】永生禁锢</span>
+                                                            <a href="同人-二次元2.jpg" target="_blank" class="file-link">📄</a>
+                                                        </li>
+                                                        <li class="work-item">
+                                                            <span>3. 绘本/文案-【L月/月L】皮肤饥渴</span>
+                                                            <a href="同人-二次元3.jpg" target="_blank" class="file-link">📄</a>
+                                                        </li>
+                                                        <li class="work-item">
+                                                            <span>4. 玄幻/古风-BE-【羡澄】忘川水</span>
+                                                            <a href="同人-二次元4.pdf" target="_blank" class="file-link">📄</a>
+                                                        </li>
+                                                        <li class="work-item">
+                                                            <span>5. 搞笑/日常-HE-【银土】论混合草莓牛奶后的蛋黄酱乳化效果与不知名X药的药效作用过程</span>
+                                                            <a href="同人-二次元5.jpg" target="_blank" class="file-link">📄</a>
+                                                        </li>
+                                                        <li class="work-item">
+                                                            <span>6. 寡妇文学/CP重组-HE-【赤安】守望</span>
+                                                            <a href="同人-二次元6.pdf" target="_blank" class="file-link">📄</a>
+                                                        </li>
+                                                        <li class="work-item">
+                                                            <span>7. 校园/日常-HE-【赤琴】旧日</span>
+                                                            <a href="同人-二次元7.jpg" target="_blank" class="file-link">📄</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 三级折叠：三次元RPS类 -->
+                                        <div class="sub-accordion-item">
+                                            <div class="sub-accordion-header" style="background: #f8fafc;">
+                                                三次元RPS类
+                                                <span class="sub-icon"><i class="fas fa-chevron-down"></i></span>
+                                            </div>
+                                            <div class="sub-accordion-content">
+                                                <div class="sub-accordion-inner">
+                                                    <ul class="work-list">
+                                                        <li class="work-item">
+                                                            <span>1. 自设系列文-伪骨科/骨科-BE</span>
+                                                            <a href="同人-rps1.jpg" target="_blank" class="file-link">📄</a>
+                                                        </li>
+                                                        <li class="work-item">
+                                                            <span>a) 直播切片片段衍生-【超黄】打是亲骂是爱</span>
+                                                            <a href="同人-rps1a.jpg" target="_blank" class="file-link">📄</a>
+                                                        </li>
+                                                        <li class="work-item">
+                                                            <span>b) 线性叙事/散文风-【超黄】初醒</span>
+                                                            <a href="同人-rps1b.jpg" target="_blank" class="file-link">📄</a>
+                                                        </li>
+                                                        <li class="work-item">
+                                                            <span>c) 对话体-【超黄】午后</span>
+                                                            <a href="同人-rps1c.jpg" target="_blank" class="file-link">📄</a>
+                                                        </li>
+                                                        <li class="work-item">
+                                                            <span>d) NTR/大纲文-【超黄】晨昏</span>
+                                                            <a href="同人-rps1d.jpg" target="_blank" class="file-link">📄</a>
+                                                        </li>
+                                                        <li class="work-item">
+                                                            <span>2. 分手/粗口-BE-【江代】抱一会儿</span>
+                                                            <a href="同人-rps2.jpg" target="_blank" class="file-link">📄</a>
+                                                        </li>
+                                                        <li class="work-item">
+                                                            <span>3. 第一视角/诗歌风-BE-【江代】告白</span>
+                                                            <a href="同人-rps3.jpg" target="_blank" class="file-link">📄</a>
+                                                        </li>
+                                                        <li class="work-item">
+                                                            <span>4. 段子/游戏-【无CP】关于英雄五羊年底坐穿牢不愿面对于是过来写关于结义们的关于故事的故事关于</span>
+                                                            <a href="同人-rps4.jpg" target="_blank" class="file-link">📄</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--<!-- 综合类作品集板块（手风琴折叠交互） -->
+<section id="comprehensive-portfolio" class="section light-bg">
+    <div class="container">
+        <h2 class="section-title"><i class="fas fa-layer-group"></i> 综合类作品集</h2>
+        <p class="portfolio-desc">完整收录摄影、图稿、视频类作品，点击展开后直接查看整本作品集PDF</p>
+
+        <!-- 手风琴容器 -->
+        <div class="accordion-container">
+            <!-- 摄影类 -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    一、摄影类作品集
+                    <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+                        <div class="sub-accordion-item">
+                            <div class="sub-accordion-header">
+                                风光类作品集
+                                <span class="sub-icon"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="sub-accordion-content">
+                                <div class="sub-accordion-inner">
+                                    <a href="风光类摄影集.pdf" target="_blank" class="file-link">
+                                        <i class="fas fa-file-pdf"></i> 查看风光类作品集（整本PDF）
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub-accordion-item">
+                            <div class="sub-accordion-header">
+                                人像类作品集
+                                <span class="sub-icon"><i class="fas fa-chevron-down"></i></span>
+                            </div>
+                            <div class="sub-accordion-content">
+                                <div class="sub-accordion-inner">
+                                    <a href="人像类摄影集.pdf" target="_blank" class="file-link">
+                                        <i class="fas fa-file-pdf"></i> 查看人像类作品集（整本PDF）
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 图稿类 -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    二、图稿类作品集
+                    <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+                        <a href="图稿类作品集.pdf" target="_blank" class="file-link">
+                            <i class="fas fa-file-pdf"></i> 查看图稿类作品集（整本PDF）
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 视频类 -->
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    三、视频类作品集
+                    <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="accordion-inner">
+                        <a href="视频类作品集.pdf" target="_blank" class="file-link">
+                            <i class="fas fa-file-pdf"></i> 查看视频类作品集（整本PDF）
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- 研究生研究规划 -->
+    <section id="plan" class="section">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-road"></i> 研究生阶段研究规划</h2>
+            <div class="plan-content">
+                <ol>
+                    <li><strong>理论夯实</strong>：期望在导师的指导下深入探索新媒体传播的前沿课题，完成具有区域影响力的学术成果。</li>
+                    <li><strong>方向延续</strong>：以线上线下结合调研数据为样本，结合可行有价值方向的研究基础，深化时代所需核心议题研究。</li>
+                    <li><strong>跨学科融合</strong>：发挥跨专业背景等实践优势，实现理论与大众文化实践、数字传播场景的深度结合。</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>文艺学考研复试学术展示 | 徐文琪</p>
+        </div>
+    </footer>
+
+    <!-- 交互脚本 -->
+    <script>
+        // 1. 毕业论文折叠按钮交互
+        const thesisToggle = document.getElementById('thesis-toggle');
+        const thesisContent = document.getElementById('thesis-content');
+        const tooltip = document.getElementById('word-tooltip');
+
+        thesisToggle.addEventListener('click', function() {
+            thesisContent.classList.toggle('hidden');
+            if (thesisContent.classList.contains('hidden')) {
+                thesisToggle.innerHTML = '<i class="fas fa-chevron-down"></i> 展开《广州线下漫展的转型困境研究》完整研究内容';
+            } else {
+                thesisToggle.innerHTML = '<i class="fas fa-chevron-up"></i> 收起《广州线下漫展的转型困境研究》完整研究内容';
+                // 展开论文后自动渲染词云
+                renderWordCloud();
+            }
+        });
+
+        // 2. 作品集手风琴折叠交互（一级面板）
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const content = this.nextElementSibling;
+                content.classList.toggle('active');
+            });
+        });
+
+        // 3. 作品集二级手风琴折叠交互
+        document.querySelectorAll('.sub-accordion-header').forEach(header => {
+            header.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('active');
+                const content = this.nextElementSibling;
+                content.classList.toggle('active');
+            });
+        });
+
+        // 4. 毕业论文关键词词云渲染（无遮挡分散式布局）
+        function renderWordCloud() {
+            const canvas = document.getElementById('wordcloud-canvas');
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+
+            // 清空画布
+            ctx.clearRect(0, 0, width, height);
+
+            // 论文核心关键词（精准匹配你的研究主题，无遮挡分散布局）
+            const words = [
+                // 核心层（最大字号，中心位置）
+                { 
+                    text: '广州线下漫展', 
+                    size: 36, 
+                    color: '#1E3A8A', 
+                    angle: 0,
+                    x: 450,
+                    y: 200,
+                    explanation: '论文研究的核心场域，指广州地区以动漫、游戏、同人文化为核心的线下展览活动，是青年亚文化的重要实践空间。'
+                },
+                { 
+                    text: '青年亚文化', 
+                    size: 34, 
+                    color: '#1E3A8A', 
+                    angle: 0,
+                    x: 450,
+                    y: 280,
+                    explanation: '论文的核心研究对象，指由青年群体创造、传播和消费的，与主流文化相对的文化实践，如漫展、同人创作等。'
+                },
+                // 理论层（次大字号，第一层环形）
+                { 
+                    text: '文化工业', 
+                    size: 30, 
+                    color: '#1E40AF', 
+                    angle: -10,
+                    x: 600,
+                    y: 160,
+                    explanation: '源自阿多诺与霍克海默，指资本主义社会中文化产品的标准化、商品化生产，论文中用于分析漫展的商业化运作模式。'
+                },
+                { 
+                    text: '符号消费', 
+                    size: 30, 
+                    color: '#1E40AF', 
+                    angle: 10,
+                    x: 300,
+                    y: 280,
+                    explanation: '鲍德里亚核心理论，指消费不再是对物品使用价值的消耗，而是对符号意义的追求，论文中用于分析漫展周边、谷子等消费行为。'
+                },
+                { 
+                    text: '权力规训', 
+                    size: 30, 
+                    color: '#1E40AF', 
+                    angle: -5,
+                    x: 200,
+                    y: 120,
+                    explanation: '福柯核心概念，指社会通过各种机制对个体进行规范和约束，论文中用于漫展受众二次元圈层文化分析。'
+                },
+                { 
+                    text: '知识-权力', 
+                    size: 28, 
+                    color: '#1E40AF', 
+                    angle: 5,
+                    x: 700,
+                    y: 240,
+                    explanation: '福柯理论，认为知识与权力相互建构，论文中用于分析漫展行业的专业知识、行业规范如何形成权力网络。'
+                },
+                // 研究维度层（中等字号，第二层环形）
+                { 
+                    text: '福柯', 
+                    size: 26, 
+                    color: '#3B82F6', 
+                    angle: -15,
+                    x: 150,
+                    y: 200,
+                    explanation: '法国哲学家，论文核心理论来源之一，其权力理论、知识考古学为受众心理 研究提供了重要的分析框架。'
+                },
+                { 
+                    text: '马尔库塞', 
+                    size: 26, 
+                    color: '#3B82F6', 
+                    angle: 15,
+                    x: 750,
+                    y: 120,
+                    explanation: '西方马克思主义代表人物，论文中用其“文化工业”“单向度的人”理论批判漫展的商业化与同质化。'
+                },
+                { 
+                    text: '审美主体性', 
+                    size: 24, 
+                    color: '#2563EB', 
+                    angle: -20,
+                    x: 100,
+                    y: 80,
+                    explanation: '论文核心议题之一，指个体在审美活动中形成的自我意识与价值判断，用于分析漫展参与者的身份认同与情感表达。'
+                },
+                { 
+                    text: '身份认同', 
+                    size: 24, 
+                    color: '#2563EB', 
+                    angle: 20,
+                    x: 800,
+                    y: 320,
+                    explanation: '论文核心研究维度，指个体通过参与漫展、消费周边等行为，建构和表达自身的亚文化身份与群体归属。'
+                },
+                { 
+                    text: '同人创作', 
+                    size: 24, 
+                    color: '#2563EB', 
+                    angle: -8,
+                    x: 250,
+                    y: 80,
+                    explanation: '漫展的核心文化实践，指粉丝基于已有IP进行的二次创作，论文中分析其作为亚文化抵抗与创新的重要形式。'
+                },
+                { 
+                    text: '版权困境', 
+                    size: 24, 
+                    color: '#2563EB', 
+                    angle: 8,
+                    x: 650,
+                    y: 320,
+                    explanation: '漫展行业的核心痛点之一，论文中分析同人创作、周边销售中的版权争议与法律风险。'
+                },
+                // 实践层（小字号，第三层环形）
+                { 
+                    text: '萤火虫漫展', 
+                    size: 22, 
+                    color: '#60A5FA', 
+                    angle: -25,
+                    x: 100,
+                    y: 320,
+                    explanation: '论文核心案例，广州最具代表性的大型漫展，作为研究样本剖析行业转型困境与发展路径。'
+                },
+                { 
+                    text: '运营创新', 
+                    size: 22, 
+                    color: '#60A5FA', 
+                    angle: 25,
+                    x: 800,
+                    y: 80,
+                    explanation: '论文提出的核心对策之一，指漫展在内容、技术、商业模式等方面的创新，以应对行业内卷与同质化。'
+                },
+                { 
+                    text: '文化生态', 
+                    size: 22, 
+                    color: '#60A5FA', 
+                    angle: -12,
+                    x: 200,
+                    y: 360,
+                    explanation: '论文研究视角，指漫展作为文化生态系统的一部分，与政策、市场、受众等要素相互作用。'
+                },
+                { 
+                    text: '舆情防控', 
+                    size: 22, 
+                    color: '#60A5FA', 
+                    angle: 12,
+                    x: 700,
+                    y: 360,
+                    explanation: '论文对策建议之一，指漫展主办方对活动中的舆论风险进行监测与管理，保障活动安全有序。'
+                },
+                { 
+                    text: '产业协同', 
+                    size: 20, 
+                    color: '#93C5FD', 
+                    angle: -30,
+                    x: 150,
+                    y: 280,
+                    explanation: '论文提出的发展路径，指漫展与游戏、影视、出版等相关产业的协同合作，构建完整的文化产业链。'
+                },
+                { 
+                    text: '数字传播', 
+                    size: 20, 
+                    color: '#93C5FD', 
+                    angle: 30,
+                    x: 750,
+                    y: 200,
+                    explanation: '论文研究维度，指漫展通过社交媒体、直播等数字平台进行传播，扩大影响力与受众范围。'
+                },
+                { 
+                    text: '田野调研', 
+                    size: 20, 
+                    color: '#93C5FD', 
+                    angle: -18,
+                    x: 300,
+                    y: 120,
+                    explanation: '论文核心研究方法，指研究者深入漫展现场，通过参与观察、深度访谈等方式收集一手资料。'
+                },
+                { 
+                    text: '实证研究', 
+                    size: 20, 
+                    color: '#93C5FD', 
+                    angle: 18,
+                    x: 600,
+                    y: 280,
+                    explanation: '论文研究范式，指基于实证数据与案例分析，而非纯理论思辨，确保研究结论的科学性与说服力。'
+                },
+            ];
+
+            // 绘制所有关键词
+            words.forEach(word => {
+                ctx.save();
+                ctx.translate(word.x, word.y);
+                ctx.rotate(word.angle * Math.PI / 180);
+                ctx.font = `bold ${word.size}px 'Noto Sans SC', sans-serif`;
+                ctx.fillStyle = word.color;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(word.text, 0, 0);
+                ctx.restore();
+            });
+
+            // 鼠标悬浮检测与提示
+            canvas.addEventListener('mousemove', function(e) {
+                const rect = canvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+
+                // 重绘词云
+                ctx.clearRect(0, 0, width, height);
+                let hoveredWord = null;
+
+                words.forEach(word => {
+                    ctx.save();
+                    ctx.translate(word.x, word.y);
+                    ctx.rotate(word.angle * Math.PI / 180);
+                    
+                    // 计算鼠标与文字的距离
+                    const dist = Math.sqrt(Math.pow(mouseX - word.x, 2) + Math.pow(mouseY - word.y, 2));
+                    
+                    if (dist < 60) {
+                        hoveredWord = word;
+                        ctx.font = `bold ${word.size + 6}px 'Noto Sans SC', sans-serif`;
+                        ctx.fillStyle = '#f59e0b';
+                    } else {
+                        ctx.font = `bold ${word.size}px 'Noto Sans SC', sans-serif`;
+                        ctx.fillStyle = word.color;
+                    }
+
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(word.text, 0, 0);
+                    ctx.restore();
+                });
+
+                // 显示/隐藏提示框
+                if (hoveredWord) {
+                    tooltip.innerHTML = `
+                        <div class="tooltip-title">${hoveredWord.text}</div>
+                        <div class="tooltip-content">${hoveredWord.explanation}</div>
+                    `;
+                    tooltip.style.left = `${mouseX + 15}px`;
+                    tooltip.style.top = `${mouseY + 15}px`;
+                    tooltip.classList.add('show');
+                } else {
+                    tooltip.classList.remove('show');
+                }
+            });
+
+            // 鼠标离开画布时隐藏提示框
+            canvas.addEventListener('mouseleave', function() {
+                tooltip.classList.remove('show');
+            });
+        }
+
+        // 页面加载完成后，若论文面板已展开，自动渲染词云
+        window.onload = function() {
+            if (!thesisContent.classList.contains('hidden')) {
+                renderWordCloud();
+            }
+        }
+    </script>
+</body>
+</html>
